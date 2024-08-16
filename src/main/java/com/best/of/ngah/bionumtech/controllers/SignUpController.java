@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/sign-up")
@@ -19,7 +20,12 @@ public class SignUpController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AuthToken signUp(@RequestBody @Valid CreateUser createUser) {
-        return signUpService.signUp(createUser);
+    public AuthToken signUp(
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam(name = "image") MultipartFile file
+    ) {
+        var toCreate = new CreateUser(email, password, file);
+        return signUpService.signUp(toCreate);
     }
 }

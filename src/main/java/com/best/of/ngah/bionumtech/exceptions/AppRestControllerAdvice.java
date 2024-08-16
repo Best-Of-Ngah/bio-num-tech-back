@@ -56,6 +56,16 @@ public class AppRestControllerAdvice {
         );
     }
 
+    @ExceptionHandler(FileOperationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public AppError<String> handleFileOperationException(FileOperationException ex) {
+        return new AppError<>(
+                ex.getMessage(),
+                LocalDate.now(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value()
+        );
+    }
+
     @ExceptionHandler(HttpInternalServerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public AppError<String> handleInternalServerException(HttpInternalServerException ex) {
@@ -65,6 +75,7 @@ public class AppRestControllerAdvice {
                 HttpStatus.INTERNAL_SERVER_ERROR.value()
         );
     }
+
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

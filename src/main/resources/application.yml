@@ -23,6 +23,11 @@ spring:
 server:
   port: 8086
 
+  servlet:
+    multipart:
+      max-file-size: 220MB
+      max-request-size: 220MB
+
 jwt:
   signing-key: ${JWT_SECRET_KEY}
   expiration-date: ${JWT_EXPIRATION_DATE}

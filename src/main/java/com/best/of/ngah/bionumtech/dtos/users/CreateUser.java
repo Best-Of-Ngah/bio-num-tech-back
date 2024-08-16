@@ -1,23 +1,21 @@
 package com.best.of.ngah.bionumtech.dtos.users;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
 @Getter
 @Setter
 public final class CreateUser extends UserBase implements Serializable {
-    @NotBlank(message = "Username cannot be blank")
-    private String username;
-
+    private MultipartFile file;
     public CreateUser(
             String email,
             String password,
-            String username
+            MultipartFile file
     ) {
         super(email, password);
-        this.username = username;
+        this.file = file;
     }
 }
