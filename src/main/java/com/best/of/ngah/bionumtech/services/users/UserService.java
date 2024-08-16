@@ -1,0 +1,6 @@
+package com.best.of.ngah.bionumtech.services.users;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public interface UserService extends UserDetailsService {
+}
