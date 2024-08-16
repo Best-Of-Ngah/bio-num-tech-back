@@ -35,4 +35,8 @@ public class RepositoryFactory {
         return getRepositoryFor("projectTypeRepository");
     }
 
+    public ActionRepository getActionRepository() {
+        return getRepositoryFor("actionRepository");
+    }
+
 }
