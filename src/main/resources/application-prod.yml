@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: bio-num-tech
+
+  datasource:
+    url: ${JDBC_POSTGRES_URL}
+    username: ${JDBC_POSTGRES_USERNAME}
+    password: ${JDBC_POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: true
+
+server:
+  port: 8086
+
+  servlet:
+    multipart:
+      max-file-size: 220MB
+      max-request-size: 220MB
+
+jwt:
+  signing-key: ${JWT_SECRET_KEY}
+  expiration-date: ${JWT_EXPIRATION_DATE}
