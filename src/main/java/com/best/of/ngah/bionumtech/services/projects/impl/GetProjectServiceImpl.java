@@ -8,6 +8,7 @@ import com.best.of.ngah.bionumtech.dtos.projects.ProjectWithTypeSummarized;
 import com.best.of.ngah.bionumtech.exceptions.HttpNotFoundException;
 import com.best.of.ngah.bionumtech.repositories.RepositoryFactory;
 import com.best.of.ngah.bionumtech.services.projects.GetProjectService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,6 +22,8 @@ import java.util.List;
 public class GetProjectServiceImpl implements GetProjectService {
     private final RepositoryFactory repository;
 
+    private EntityManager entityManager;
+
     @Override
     public Paginate<List<ProjectSummarized>> findAllProjects(Integer page, Integer pageSize, String propertyToSortBy, Sort.Direction direction) {
         Sort sort = Sort.by(direction, propertyToSortBy);
@@ -28,11 +31,7 @@ public class GetProjectServiceImpl implements GetProjectService {
         var projectSummariesPage = repository.getProjectRepository().findAllProjects(pageable);
         var projectSummaries = projectSummariesPage.getContent();
         var totalPages = projectSummariesPage.getTotalPages();
-        var hasNext = totalPages > page + 1;
-        var hasPrevious = page > 0;
-
-        var pageInfo = new PageInfo(hasNext, hasPrevious);
-
+        var pageInfo = new PageInfo(projectSummariesPage.hasNext(), projectSummariesPage.hasPrevious());
         return new Paginate<>(projectSummaries, pageInfo, totalPages);
     }
 

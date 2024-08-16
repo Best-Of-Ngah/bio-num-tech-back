@@ -25,7 +25,12 @@ public class GetProjectController {
             @RequestParam(defaultValue = "realisationDate") String propertyToSortBy,
             @RequestParam(defaultValue = "asc") String direction
     ) {
-        return getProjectService.findAllProjects(page, size, propertyToSortBy, Sort.Direction.valueOf(direction.toUpperCase()));
+        return getProjectService.findAllProjects(
+                page,
+                size,
+                propertyToSortBy,
+                Sort.Direction.valueOf(direction.toUpperCase())
+        );
     }
 
     @GetMapping("/{id}")
