@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserTemplate> updateUser(UpdateUser newUser) {
+    public UserTemplate updateUser(UpdateUser newUser) {
         var foundUser = repository.getUserRepository().findById(newUser.getId())
                 .orElseThrow(() -> new HttpNotFoundException("user not found"));
 
@@ -71,15 +70,15 @@ public class UserServiceImpl implements UserService {
             foundUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         }
         var savedUser = repository.getUserRepository().save(foundUser);
-        return Optional.of(new UserTemplate(savedUser.getId(), savedUser.getEmail(), savedUser.getImage()));
+        return new UserTemplate(savedUser.getId(), savedUser.getEmail(), savedUser.getImage());
     }
 
     @Override
-    public Optional<UserTemplate> findById(String id) {
+    public UserTemplate findById(String id) {
         var foundUser = repository.getUserRepository().findById(Long.valueOf(id))
                 .orElseThrow(() -> new HttpNotFoundException("user not found"));
 
-        return Optional.of(new UserTemplate(foundUser.getId(), foundUser.getEmail(), foundUser.getImage()));
+        return new UserTemplate(foundUser.getId(), foundUser.getEmail(), foundUser.getImage());
     }
 
     @Override
@@ -94,7 +93,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        var idUser = id;
-        repository.getUserRepository().deleteById(idUser);
+        if (repository.getUserRepository().existsById(id)) {
+            repository.getUserRepository().deleteById(id);
+            return;
+        }
+        throw new HttpNotFoundException("User not found");
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -29,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public Optional<UserTemplate> updateUser(
+    public UserTemplate updateUser(
             @RequestParam String id,
             @RequestParam String email,
             @RequestParam String password,
@@ -40,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<UserTemplate> findById(@PathVariable String id) {
+    public UserTemplate findById(@PathVariable String id) {
         return userService.findById(id);
     }
 
