@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -26,4 +27,27 @@ public class Don {
 
     @ManyToOne
     private User user;
+
+    @OneToOne
+    @JoinColumn(unique = true, nullable = false)
+    private Project project;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void beforeCreate() {
+        if (createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+        if (updatedAt == null) {
+            this.updatedAt = LocalDateTime.now();
+        }
+    }
+
+    @PreUpdate
+    public void beforeUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

@@ -5,6 +5,8 @@ import com.best.of.ngah.bionumtech.enums.TypeName;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +23,23 @@ public class Type {
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
     private TypeName name;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void beforeCreate() {
+        if (createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+        if (updatedAt == null) {
+            this.updatedAt = LocalDateTime.now();
+        }
+    }
+
+    @PreUpdate
+    public void beforeUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

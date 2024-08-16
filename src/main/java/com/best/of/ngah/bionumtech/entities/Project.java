@@ -33,10 +33,28 @@ public class Project {
     @Column(columnDefinition = "TEXT")
     private String image;
 
-    @OneToOne
-    @JoinColumn(unique = true, nullable = false)
-    private Don don;
-
     @ManyToOne(optional = false)
     private Type type;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    @ManyToOne(optional = false)
+    private User user;
+
+    @PrePersist
+    public void beforeCreate() {
+        if (createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+        if (updatedAt == null) {
+            this.updatedAt = LocalDateTime.now();
+        }
+    }
+
+    @PreUpdate
+    public void beforeUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

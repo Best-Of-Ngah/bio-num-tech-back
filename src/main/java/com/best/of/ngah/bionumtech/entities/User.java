@@ -40,13 +40,13 @@ public class User implements UserDetails {
     @Column(columnDefinition = "TEXT")
     private String image;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleName role;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
     @PrePersist
     public void beforeCreate() {
