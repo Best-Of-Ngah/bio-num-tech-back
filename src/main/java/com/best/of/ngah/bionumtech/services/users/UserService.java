@@ -17,4 +17,6 @@ public interface UserService extends UserDetailsService {
 
     Paginate<List<UserTemplate>> getUserByParameters(String keyword, Integer pageSize, Integer currentPage);
 
+    void deleteUser(Long id);
+
 }

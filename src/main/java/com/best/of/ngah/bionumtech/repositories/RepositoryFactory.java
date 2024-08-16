@@ -24,4 +24,9 @@ public class RepositoryFactory {
     public UserRepository getUserRepository() {
         return getRepositoryFor("userRepository");
     }
+
+    public ActionRepository getActionRepository() {
+        return getRepositoryFor("actionRepository");
+    }
+
 }

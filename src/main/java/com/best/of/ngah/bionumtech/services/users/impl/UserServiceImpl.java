@@ -7,6 +7,7 @@ import com.best.of.ngah.bionumtech.dtos.users.UserTemplate;
 import com.best.of.ngah.bionumtech.exceptions.HttpNotFoundException;
 import com.best.of.ngah.bionumtech.files.FileService;
 import com.best.of.ngah.bionumtech.repositories.RepositoryFactory;
+import com.best.of.ngah.bionumtech.repositories.UserRepository;
 import com.best.of.ngah.bionumtech.services.users.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -26,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final RepositoryFactory repository;
     private final FileService fileService;
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     @Override
     @SneakyThrows(UsernameNotFoundException.class)
@@ -88,5 +90,11 @@ public class UserServiceImpl implements UserService {
         var pageInfo = new PageInfo(users.hasNext(), users.hasPrevious());
         var totalPage = users.getTotalPages();
         return new Paginate<>(items, pageInfo, totalPage);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        var idUser = id;
+        repository.getUserRepository().deleteById(idUser);
     }
 }

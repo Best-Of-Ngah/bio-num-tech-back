@@ -39,4 +39,6 @@ public class Project {
 
     @ManyToOne(optional = false)
     private Type type;
+    @ManyToOne(optional = false)
+    private User user;
 }

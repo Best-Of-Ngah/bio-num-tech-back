@@ -50,4 +50,9 @@ public class UserController {
         return userService.getUserByParameters(text, pageSize, currentPage);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+
 }
