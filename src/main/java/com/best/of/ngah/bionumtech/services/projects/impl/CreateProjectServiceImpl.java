@@ -26,7 +26,7 @@ public class CreateProjectServiceImpl implements CreateProjectService {
         var projectType = findProjectTypeById(toCreate.getTypeId());
         var url = saveFileAndGetUrl(toCreate.getFile());
         var project = createProjectEntity(foundUser, projectType, toCreate, url);
-         var savedProject = repository.getProjectRepository().save(project);
+        var savedProject = repository.getProjectRepository().save(project);
         return summarizeProject(savedProject);
     }
 

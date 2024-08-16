@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/projects")
 public class DeleteProjectController {
-    private DeleteProjectService deleteProjectService;
-
+    private final DeleteProjectService deleteProjectService;
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

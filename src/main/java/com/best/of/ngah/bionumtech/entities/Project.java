@@ -33,14 +33,14 @@ public class Project {
     @Column(columnDefinition = "TEXT")
     private String image;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Type type;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User user;
 
     @PrePersist

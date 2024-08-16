@@ -3,6 +3,7 @@ package com.best.of.ngah.bionumtech.controllers;
 import com.best.of.ngah.bionumtech.dtos.projects.CreateProject;
 import com.best.of.ngah.bionumtech.dtos.projects.ProjectSummarized;
 import com.best.of.ngah.bionumtech.services.projects.CreateProjectService;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +22,13 @@ public class CreateProjectController {
 
     @PostMapping
     public ProjectSummarized createProject(
-            @RequestParam String typeId,
-            @RequestParam String userId,
-            @RequestParam String status,
-            @RequestParam String budget,
-            @RequestParam String description,
-            @RequestParam(name = "realisationDate") String requestDateString,
-            @RequestParam(name = "realisationDate") String realisationDateString,
+            @RequestParam @NotNull String typeId,
+            @RequestParam @NotNull String userId,
+            @RequestParam @NotNull String status,
+            @RequestParam @NotNull String budget,
+            @RequestParam @NotNull String description,
+            @RequestParam(name = "realisationDate") @NotNull String requestDateString,
+            @RequestParam(name = "realisationDate") @NotNull String realisationDateString,
             @RequestParam MultipartFile file
     ) {
         var requestDate = LocalDateTime.parse(requestDateString, DateTimeFormatter.ISO_DATE_TIME);

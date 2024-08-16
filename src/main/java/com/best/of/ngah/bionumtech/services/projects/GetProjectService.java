@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 
 public interface GetProjectService {
-    Paginate<List<ProjectSummarized>> findAllProjects(Integer page, Integer currentPage,String propertyToSortBy, Sort.Direction direction);
+    Paginate<List<ProjectSummarized>> findAllProjects(Integer page, Integer currentPage, String propertyToSortBy, Sort.Direction direction);
 
     ProjectWithTypeSummarized findProjectWithTypeById(Long id);
 }

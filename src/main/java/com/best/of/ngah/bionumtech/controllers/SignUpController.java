@@ -4,6 +4,7 @@ package com.best.of.ngah.bionumtech.controllers;
 import com.best.of.ngah.bionumtech.dtos.token.AuthToken;
 import com.best.of.ngah.bionumtech.dtos.users.CreateUser;
 import com.best.of.ngah.bionumtech.services.auth.SignUpService;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -20,8 +21,8 @@ public class SignUpController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AuthToken signUp(
-            @RequestParam String email,
-            @RequestParam String password,
+            @RequestParam @NotNull String email,
+            @RequestParam @NotNull String password,
             @RequestParam(name = "image") MultipartFile file
     ) {
         var toCreate = new CreateUser(email, password, file);

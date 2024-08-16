@@ -39,4 +39,9 @@ public class RepositoryFactory {
         return getRepositoryFor("actionRepository");
     }
 
+
+    public DonRepository getDonRepository() {
+        return getRepositoryFor("donRepository");
+    }
+
 }
