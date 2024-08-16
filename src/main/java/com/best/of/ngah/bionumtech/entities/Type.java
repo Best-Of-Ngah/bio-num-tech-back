@@ -1,6 +1,7 @@
 package com.best.of.ngah.bionumtech.entities;
 
 
+import com.best.of.ngah.bionumtech.enums.TypeName;
 import jakarta.persistence.*;
 import lombok.*;
 

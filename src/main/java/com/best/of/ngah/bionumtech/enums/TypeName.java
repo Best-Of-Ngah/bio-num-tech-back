@@ -1,4 +1,4 @@
-package com.best.of.ngah.bionumtech.entities;
+package com.best.of.ngah.bionumtech.enums;
 
 public enum TypeName {
     FAMBOLENA_HAZO,
