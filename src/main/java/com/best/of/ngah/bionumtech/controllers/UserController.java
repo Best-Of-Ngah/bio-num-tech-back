@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserTemplate updateUser(
+    public Optional<UserTemplate> updateUser(
             @RequestParam String id, @RequestParam String email, @RequestParam String password, @RequestParam(name = "file") MultipartFile image
     ) {
         var newUser = new UpdateUser(Long.valueOf(id), email, password, image);
@@ -36,7 +37,17 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserTemplate findById(@PathVariable String id) {
+    public Optional<UserTemplate> findById(@PathVariable String id) {
         return userService.findById(id);
     }
+
+    @GetMapping("/search")
+    public Paginate<List<UserTemplate>> getUserByParams(
+            @RequestParam String text,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "1") Integer currentPage
+    ) {
+        return userService.getUserByParameters(text, pageSize, currentPage);
+    }
+
 }

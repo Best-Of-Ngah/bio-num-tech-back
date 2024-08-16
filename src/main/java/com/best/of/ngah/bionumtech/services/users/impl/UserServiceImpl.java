@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserTemplate updateUser(UpdateUser newUser) {
+    public Optional<UserTemplate> updateUser(UpdateUser newUser) {
         var foundUser = repository.getUserRepository().findById(newUser.getId())
                 .orElseThrow(() -> new HttpNotFoundException("user not found"));
 
@@ -68,14 +69,24 @@ public class UserServiceImpl implements UserService {
             foundUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         }
         var savedUser = repository.getUserRepository().save(foundUser);
-        return new UserTemplate(savedUser.getId(), savedUser.getEmail(), savedUser.getImage());
+        return Optional.of(new UserTemplate(savedUser.getId(), savedUser.getEmail(), savedUser.getImage()));
     }
 
     @Override
-    public UserTemplate findById(String id) {
+    public Optional<UserTemplate> findById(String id) {
         var foundUser = repository.getUserRepository().findById(Long.valueOf(id))
                 .orElseThrow(() -> new HttpNotFoundException("user not found"));
 
-        return new UserTemplate(foundUser.getId(), foundUser.getEmail(), foundUser.getImage());
+        return Optional.of(new UserTemplate(foundUser.getId(), foundUser.getEmail(), foundUser.getImage()));
+    }
+
+    @Override
+    public Paginate<List<UserTemplate>> getUserByParameters(String keyword, Integer pageSize, Integer currentPage) {
+        var page = PageRequest.of(currentPage - 1, pageSize);
+        var users = repository.getUserRepository().findByEmailContaining(keyword, page);
+        var items = users.getContent();
+        var pageInfo = new PageInfo(users.hasNext(), users.hasPrevious());
+        var totalPage = users.getTotalPages();
+        return new Paginate<>(items, pageInfo, totalPage);
     }
 }
