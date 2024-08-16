@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "type")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -17,9 +16,9 @@ import lombok.*;
 public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 50)
+    @Column(unique = true)
     private TypeName name;
 }

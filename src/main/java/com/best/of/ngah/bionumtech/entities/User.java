@@ -44,7 +44,6 @@ public class User implements UserDetails {
 
     private LocalDateTime updatedAt;
 
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleName role;

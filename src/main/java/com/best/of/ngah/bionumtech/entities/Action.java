@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "action")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -15,18 +14,16 @@ import lombok.*;
 public class Action {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    private int liked;
+    private Long liked;
 
     @Column(columnDefinition = "TEXT")
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "id")
-    private Projet projet;
+    private Project project;
 
-    @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @ManyToOne(optional = false)
     private User user;
 }
