@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Setter
 public final class CreateUser extends UserBase implements Serializable {
     private MultipartFile file;
+
     public CreateUser(
             String email,
             String password,

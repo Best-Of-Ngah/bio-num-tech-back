@@ -24,7 +24,6 @@ public class SignUpServiceImpl implements SignUpService {
     private final FileService fileService;
 
 
-
     @Transactional
     @Override
     public AuthToken signUp(@NonNull CreateUser user) {
