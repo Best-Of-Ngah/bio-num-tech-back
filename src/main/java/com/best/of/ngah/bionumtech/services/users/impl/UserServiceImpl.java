@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -89,12 +90,16 @@ public class UserServiceImpl implements UserService {
         return new Paginate<>(items, pageInfo, totalPage);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) {
-        if (repository.getUserRepository().existsById(id)) {
-            repository.getUserRepository().deleteById(id);
-            return;
+        var foundUser = repository.getUserRepository()
+                .findById(id).orElseThrow(() -> new HttpNotFoundException("User not found"));
+
+        var url = foundUser.getImage();
+        if (url != null) {
+            fileService.deleteFile(url);
         }
-        throw new HttpNotFoundException("User not found");
+        repository.getUserRepository().deleteById(id);
     }
 }
