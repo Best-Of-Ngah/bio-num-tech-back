@@ -62,7 +62,9 @@ public class CreateProjectServiceImpl implements CreateProjectService {
                 project.getRealisationDate(),
                 project.getImage(),
                 project.getCreatedAt(),
-                project.getUpdatedAt()
+                project.getUpdatedAt(),
+                project.getUser().getId(),
+                project.getType().getId()
         );
     }
 }

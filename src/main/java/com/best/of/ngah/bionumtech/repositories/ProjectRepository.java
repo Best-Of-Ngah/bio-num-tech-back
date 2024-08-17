@@ -15,7 +15,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long>, JpaSpec
     @Query("""
             SELECT
                  new com.best.of.ngah.bionumtech.dtos.projects.ProjectSummarized(
-                     p.id, p.status,p.budget, p.description, p.requestDate, p.realisationDate,p.image, p.createdAt, p.updatedAt
+                     p.id, p.status,p.budget, p.description, p.requestDate, p.realisationDate,p.image, p.createdAt, p.updatedAt,p.user.id,p.type.id
                  )
             FROM Project p
             """)
