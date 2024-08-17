@@ -13,6 +13,8 @@ public final class ProjectSummarized extends ProjectBase {
     private String image;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private Long userId;
+    private Long typeId;
 
     public ProjectSummarized(
             Long id,
@@ -23,12 +25,16 @@ public final class ProjectSummarized extends ProjectBase {
             LocalDateTime realisationDate,
             String image,
             LocalDateTime createdAt,
-            LocalDateTime updatedAt
+            LocalDateTime updatedAt,
+            Long userId ,
+            Long typeId
     ) {
         super(status, budget, description, requestDate, realisationDate);
         this.id = id;
         this.image = image;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.userId = userId;
+        this.typeId = typeId;
     }
 }

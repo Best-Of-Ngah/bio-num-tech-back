@@ -57,7 +57,9 @@ public class UpdateProjectServiceImpl implements UpdateProjectService {
                 project.getRealisationDate(),
                 project.getImage(),
                 project.getCreatedAt(),
-                project.getUpdatedAt()
+                project.getUpdatedAt(),
+                project.getUser().getId(),
+                project.getType().getId()
         );
     }
 
